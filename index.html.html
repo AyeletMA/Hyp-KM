@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>מערכת הידע של HYP - הצעות שמות</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --dark-blue: #1B2055;
+        --primary-blue: #2331DA;
+        --electric-blue: #4851EE;
+        --sky-blue: #78B8F6;
+        --shell-pink: #FFB4A8;
+        --coral: #FF6B5C;
+        --bg-light: #EDF2FC;
+        --bg-lavender: #CDCDE5;
+        --text-dark: #252B70;
+    }
+
+    body {
+        font-family: 'Heebo', 'Ploni', sans-serif;
+        background: #0a0d2e;
+        color: var(--text-dark);
+        overflow: hidden;
+    }
+
+    .deck {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+    }
+
+    .slide {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        padding: 60px 80px;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        background: #fff;
+    }
+
+    .slide.active { display: flex; }
+
+    /* COVER */
+    .slide.cover {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--electric-blue) 50%, var(--sky-blue) 100%);
+        color: white;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .slide.cover .badge {
+        display: inline-block;
+        padding: 8px 22px;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 100px;
+        font-size: 16px;
+        letter-spacing: 0.05em;
+        margin-bottom: 30px;
+        backdrop-filter: blur(10px);
+    }
+    .slide.cover h1 {
+        font-size: 84px;
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 20px;
+    }
+    .slide.cover .subtitle {
+        font-size: 26px;
+        font-weight: 300;
+        opacity: 0.9;
+        max-width: 700px;
+    }
+    .slide.cover .deco {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--coral) 0%, transparent 70%);
+        opacity: 0.35;
+        top: -200px;
+        left: -200px;
+    }
+    .slide.cover .deco2 {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--shell-pink) 0%, transparent 70%);
+        opacity: 0.3;
+        bottom: -150px;
+        right: -150px;
+    }
+
+    /* NAME SLIDES */
+    .slide.name-slide {
+        display: none;
+        flex-direction: row;
+        padding: 0;
+    }
+    .slide.name-slide.active { display: flex; }
+
+    .name-left {
+        flex: 0 0 45%;
+        padding: 80px 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    .name-right {
+        flex: 1;
+        padding: 80px 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #fff;
+    }
+
+    .slide-num {
+        font-size: 18px;
+        font-weight: 500;
+        opacity: 0.7;
+        margin-bottom: 24px;
+        letter-spacing: 0.1em;
+    }
+    .name-title {
+        font-size: 92px;
+        font-weight: 900;
+        line-height: 1;
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+    }
+    .name-meaning {
+        font-size: 22px;
+        font-weight: 300;
+        opacity: 0.9;
+        line-height: 1.4;
+    }
+
+    .right-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--primary-blue);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        direction: ltr;
+        text-align: right;
+    }
+    .right-headline {
+        font-size: 38px;
+        font-weight: 700;
+        color: var(--dark-blue);
+        line-height: 1.25;
+        margin-bottom: 28px;
+    }
+    .right-desc {
+        font-size: 19px;
+        line-height: 1.7;
+        color: #4a4f6b;
+        margin-bottom: 32px;
+    }
+    .tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .tag {
+        padding: 8px 18px;
+        background: var(--bg-light);
+        color: var(--primary-blue);
+        border-radius: 100px;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    /* Slide 1: Athena */
+    .slide.athena .name-left {
+        background: linear-gradient(135deg, #1B2055 0%, #2331DA 100%);
+    }
+    .slide.athena .name-left::before {
+        content: '';
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(120,184,246,0.4) 0%, transparent 70%);
+        top: -100px;
+        right: -100px;
+        border-radius: 50%;
+    }
+
+    /* Slide 2: Loom */
+    .slide.loom .name-left {
+        background: linear-gradient(135deg, #2331DA 0%, #4851EE 60%, #78B8F6 100%);
+    }
+    .slide.loom .name-left::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(45deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+            linear-gradient(-45deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    /* Slide 3: Root */
+    .slide.root .name-left {
+        background: linear-gradient(135deg, #1B2055 0%, #2331DA 50%, #FF6B5C 100%);
+    }
+    .slide.root .name-left::before {
+        content: '';
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(255,180,168,0.3) 0%, transparent 70%);
+        bottom: -150px;
+        left: -150px;
+        border-radius: 50%;
+    }
+
+    /* Slide 4: Flow */
+    .slide.flow .name-left {
+        background: linear-gradient(135deg, #4851EE 0%, #78B8F6 50%, #FFB4A8 100%);
+    }
+    .slide.flow .name-left::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 20px,
+            rgba(255,255,255,0.05) 20px,
+            rgba(255,255,255,0.05) 40px
+        );
+    }
+
+    /* Slide 5: Pulse */
+    .slide.pulse .name-left {
+        background: linear-gradient(135deg, #2331DA 0%, #4851EE 50%, #FF6B5C 100%);
+    }
+    .slide.pulse .name-left::before {
+        content: '';
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,180,168,0.35) 0%, transparent 70%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulseRing 2.4s ease-out infinite;
+    }
+    .slide.pulse .name-left::after {
+        content: '';
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,107,92,0.4) 0%, transparent 70%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulseRing 2.4s ease-out infinite;
+        animation-delay: 1.2s;
+    }
+    @keyframes pulseRing {
+        0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0.9; }
+        100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+    }
+
+    /* COMPARISON SLIDE */
+    .slide.compare {
+        background: linear-gradient(180deg, #fff 0%, var(--bg-light) 100%);
+        padding: 60px 80px;
+        justify-content: flex-start;
+    }
+    .compare-title {
+        font-size: 48px;
+        font-weight: 900;
+        color: var(--dark-blue);
+        margin-bottom: 12px;
+    }
+    .compare-sub {
+        font-size: 20px;
+        color: #656996;
+        margin-bottom: 40px;
+    }
+    .compare-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 18px;
+        flex: 1;
+    }
+    .compare-card {
+        background: white;
+        border-radius: 20px;
+        padding: 28px 20px;
+        box-shadow: 0 8px 32px rgba(35,49,218,0.08);
+        display: flex;
+        flex-direction: column;
+        border-top: 6px solid;
+    }
+    .compare-card.c1 { border-color: var(--dark-blue); }
+    .compare-card.c2 { border-color: var(--electric-blue); }
+    .compare-card.c3 { border-color: var(--coral); }
+    .compare-card.c4 { border-color: var(--sky-blue); }
+    .compare-card.c5 { border-color: var(--shell-pink); }
+
+    .compare-card h3 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--dark-blue);
+        margin-bottom: 4px;
+    }
+    .compare-card .small {
+        font-size: 13px;
+        color: #999;
+        margin-bottom: 18px;
+        direction: ltr;
+        text-align: right;
+    }
+    .compare-card .vibe {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary-blue);
+        margin-bottom: 14px;
+    }
+    .compare-card .pro,
+    .compare-card .con {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        color: #4a4f6b;
+    }
+    .compare-card .pro::before { content: '✓ '; color: #2eb673; font-weight: 700; }
+    .compare-card .con::before { content: '— '; color: var(--coral); font-weight: 700; }
+
+    /* NAV */
+    .nav {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: rgba(255,255,255,0.95);
+        padding: 10px 18px;
+        border-radius: 100px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        z-index: 100;
+        direction: ltr;
+    }
+    .nav button {
+        background: var(--primary-blue);
+        color: white;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
+    .nav button:hover { background: var(--electric-blue); }
+    .nav .counter {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--dark-blue);
+        min-width: 50px;
+        text-align: center;
+    }
+
+    .logo-mark {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        font-size: 18px;
+        font-weight: 800;
+        color: white;
+        opacity: 0.6;
+        letter-spacing: 0.1em;
+        direction: ltr;
+    }
+    .slide.compare .logo-mark,
+    .slide:not(.cover):not(.name-slide) .logo-mark {
+        color: var(--primary-blue);
+    }
+
+    .symbol {
+        font-size: 200px;
+        line-height: 1;
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        opacity: 0.15;
+        font-weight: 900;
+    }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+    <!-- COVER -->
+    <div class="slide cover active">
+        <div class="deco"></div>
+        <div class="deco2"></div>
+        <div class="badge">HYP × Knowledge System</div>
+        <h1>איך נקרא<br/>למוח של החברה?</h1>
+        <div class="subtitle">ארבע הצעות שמות למערכת הידע הארגונית של HYP</div>
+    </div>
+
+    <!-- ATHENA -->
+    <div class="slide name-slide athena">
+        <div class="name-left">
+            <div class="logo-mark">HYP</div>
+            <div class="slide-num">01 / NAME</div>
+            <div class="name-title">Hyp Athena</div>
+            <div class="name-meaning">אלת החוכמה, התבונה והאסטרטגיה</div>
+            <div class="symbol">Α</div>
+        </div>
+        <div class="name-right">
+            <div class="right-label">The Wise One</div>
+            <div class="right-headline">קצר, חזק, ויושב בול על מערכת שמרכזת את ה"שכל" של החברה</div>
+            <div class="right-desc">
+                שם איקוני שמשדר סמכות, עומק וביטחון. אתנה היא סמל אוניברסלי לידע ותבונה — שם שעובד מצוין בעולמות של אסטרטגיה, החלטות מבוססות נתונים, ומקור אמת ארגוני.
+            </div>
+            <div class="tags">
+                <span class="tag">סמכותי</span>
+                <span class="tag">איקוני</span>
+                <span class="tag">אסטרטגי</span>
+                <span class="tag">בינלאומי</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOOM -->
+    <div class="slide name-slide loom">
+        <div class="name-left">
+            <div class="logo-mark">HYP</div>
+            <div class="slide-num">02 / NAME</div>
+            <div class="name-title">Hyp Loom</div>
+            <div class="name-meaning">המערכת ש"שוזרת" את כל חוטי הידע ליריעה אחת</div>
+            <div class="symbol">∞</div>
+        </div>
+        <div class="name-right">
+            <div class="right-label">The Weaver</div>
+            <div class="right-headline">שוזרת יחד את כל חוטי המידע ליריעה שלמה</div>
+            <div class="right-desc">
+                מטאפורה ויזואלית עוצמתית. Loom (מכונת אריגה) מתאר בדיוק את הפעולה — חיבור פיסות ידע מבודדות לבד אחד שלם. שם פיוטי, אנושי, ומדגיש את ערך השילוב והסינתזה.
+            </div>
+            <div class="tags">
+                <span class="tag">מטאפורי</span>
+                <span class="tag">אנושי</span>
+                <span class="tag">משלב</span>
+                <span class="tag">ייחודי</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROOT -->
+    <div class="slide name-slide root">
+        <div class="name-left">
+            <div class="logo-mark">HYP</div>
+            <div class="slide-num">03 / NAME</div>
+            <div class="name-title">Hyp Root</div>
+            <div class="name-meaning">השורשים — הבסיס ממנו צומחת כל ידיעה בארגון</div>
+            <div class="symbol">⫯</div>
+        </div>
+        <div class="name-right">
+            <div class="right-label">The Foundation</div>
+            <div class="right-headline">השורשים — הבסיס ממנו צומחת כל ידיעה בארגון</div>
+            <div class="right-desc">
+                שם יציב, יסודי, שמדגיש עומק ומקוריות. Root מסמן שזה לא עוד כלי — זו התשתית. הוא גם משחק יפה עם השפה הטכנית (root cause, root user) ושומר על אופי מעט יותר רציני.
+            </div>
+            <div class="tags">
+                <span class="tag">יסודי</span>
+                <span class="tag">עמוק</span>
+                <span class="tag">טכני</span>
+                <span class="tag">תשתיתי</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOW -->
+    <div class="slide name-slide flow">
+        <div class="name-left">
+            <div class="logo-mark">HYP</div>
+            <div class="slide-num">04 / NAME</div>
+            <div class="name-title">Hyp Flow</div>
+            <div class="name-meaning">הידע לא תקוע בקבצים — הוא זורם, דינמי ונגיש</div>
+            <div class="symbol">≋</div>
+        </div>
+        <div class="name-right">
+            <div class="right-label">The Stream</div>
+            <div class="right-headline">הידע לא תקוע בקבצים ישנים — הוא זורם, דינמי ונגיש לכולם בקלות</div>
+            <div class="right-desc">
+                שם דינמי, צעיר ומודרני. Flow משדר נגישות, מהירות וחוויית משתמש חלקה. מתאים מאוד לעולם דיגיטלי, אג'ילי, ועובד טוב גם בעברית ("פלואו", "תזרים ידע").
+            </div>
+            <div class="tags">
+                <span class="tag">דינמי</span>
+                <span class="tag">מודרני</span>
+                <span class="tag">נגיש</span>
+                <span class="tag">צעיר</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PULSE -->
+    <div class="slide name-slide pulse">
+        <div class="name-left">
+            <div class="logo-mark">HYP</div>
+            <div class="slide-num">05 / NAME</div>
+            <div class="name-title">Hyp Pulse</div>
+            <div class="name-meaning">הדופק של הארגון — חי ומתעדכן בזמן אמת</div>
+            <div class="symbol">♥</div>
+        </div>
+        <div class="name-right">
+            <div class="right-label">The Heartbeat</div>
+            <div class="right-headline">הדופק של הארגון — חי ומתעדכן בזמן אמת</div>
+            <div class="right-desc">
+                שם אנרגטי שמשדר חיוניות, מומנטום וחיבור. Pulse מציג את מערכת הידע לא כמאגר סטטי אלא כישות חיה שפועמת יחד עם החברה — מקצב, עדכניות ותחושת זמן-אמת. מתאים במיוחד לארגון דינמי שרוצה להרגיש את הידע נושם.
+            </div>
+            <div class="tags">
+                <span class="tag">חי</span>
+                <span class="tag">בזמן אמת</span>
+                <span class="tag">אנרגטי</span>
+                <span class="tag">מתחדש</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPARISON -->
+    <div class="slide compare">
+        <div class="logo-mark">HYP</div>
+        <div class="compare-title">השוואה במבט אחד</div>
+        <div class="compare-sub">איך כל שם מרגיש, מה הוא משדר, ומה כדאי לשקול</div>
+
+        <div class="compare-grid">
+            <div class="compare-card c1">
+                <h3>Athena</h3>
+                <div class="small">Hyp Athena</div>
+                <div class="vibe">סמכותי וחכם</div>
+                <div class="pro">מיתולוגי וחזק</div>
+                <div class="pro">ידידותי לבינלאומיות</div>
+                <div class="con">פחות קליל, מעט פורמלי</div>
+                <div class="con">דורש הסבר תרבותי</div>
+            </div>
+
+            <div class="compare-card c2">
+                <h3>Loom</h3>
+                <div class="small">Hyp Loom</div>
+                <div class="vibe">משלב ופיוטי</div>
+                <div class="pro">מטאפורה מדויקת</div>
+                <div class="pro">שם ייחודי ובלתי נשכח</div>
+                <div class="con">פחות מובן מיידית</div>
+                <div class="con">דורש סטוריטלינג</div>
+            </div>
+
+            <div class="compare-card c3">
+                <h3>Root</h3>
+                <div class="small">Hyp Root</div>
+                <div class="vibe">יסודי וטכני</div>
+                <div class="pro">מסר תשתיתי ברור</div>
+                <div class="pro">קצר וקל לזכור</div>
+                <div class="con">אסוציאציות טכניות (root user)</div>
+                <div class="con">פחות "חי"</div>
+            </div>
+
+            <div class="compare-card c4">
+                <h3>Flow</h3>
+                <div class="small">Hyp Flow</div>
+                <div class="vibe">דינמי ונגיש</div>
+                <div class="pro">צעיר ומודרני</div>
+                <div class="pro">עובד מצוין בעברית</div>
+                <div class="con">שם נפוץ יחסית בשוק</div>
+                <div class="con">פחות בולט/ייחודי</div>
+            </div>
+
+            <div class="compare-card c5">
+                <h3>Pulse</h3>
+                <div class="small">Hyp Pulse</div>
+                <div class="vibe">חי ובזמן אמת</div>
+                <div class="pro">משדר חיוניות ומומנטום</div>
+                <div class="pro">תחושת עדכניות מתמדת</div>
+                <div class="con">פחות מקושר ל"ידע" ישירות</div>
+                <div class="con">נפוץ בעולמות אנליטיקה</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="nav">
+    <button onclick="prev()">‹</button>
+    <span class="counter"><span id="cur">1</span> / <span id="tot">6</span></span>
+    <button onclick="next()">›</button>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    let idx = 0;
+    document.getElementById('tot').textContent = slides.length;
+
+    function show(i) {
+        slides.forEach(s => s.classList.remove('active'));
+        slides[i].classList.add('active');
+        document.getElementById('cur').textContent = i + 1;
+    }
+    function next() { idx = (idx + 1) % slides.length; show(idx); }
+    function prev() { idx = (idx - 1 + slides.length) % slides.length; show(idx); }
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') next();      // RTL: left arrow = next
+        if (e.key === 'ArrowRight') prev();
+        if (e.key === ' ') { e.preventDefault(); next(); }
+    });
+</script>
+
+</body>
+</html>
